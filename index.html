@@ -373,6 +373,64 @@
       text-transform: uppercase;
     }
 
+    .project-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .project-links a {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 8px 11px;
+      color: #3f392f;
+      background: rgba(255, 251, 243, 0.42);
+      font-size: 12px;
+      line-height: 1;
+      text-decoration: none;
+      transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
+    }
+
+    .project-links a:hover {
+      border-color: rgba(172, 62, 30, 0.55);
+      color: var(--accent);
+      background: rgba(255, 251, 243, 0.72);
+    }
+
+    .version-note {
+      margin: 0;
+      border-top: 1px solid var(--line);
+      padding-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.75;
+    }
+
+    .version-note + .version-note {
+      border-top: 0;
+      padding-top: 0;
+      margin-top: -8px;
+    }
+
+    .version-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: -10px;
+    }
+
+    .version-links a {
+      color: var(--accent);
+      font-size: 12px;
+      line-height: 1.4;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(172, 62, 30, 0.28);
+    }
+
+    .version-links a:hover {
+      border-bottom-color: rgba(172, 62, 30, 0.72);
+    }
+
     .media-frame {
       position: relative;
       width: 100%;
@@ -409,6 +467,36 @@
     .media-frame:hover img {
       transform: scale(1.025);
       filter: saturate(1) contrast(1.04);
+    }
+
+    .media-stack {
+      display: grid;
+      gap: 18px;
+      align-self: start;
+    }
+
+    .media-stack .media-frame {
+      aspect-ratio: 16 / 9.2;
+      box-shadow: 0 18px 54px rgba(35, 30, 24, 0.10);
+    }
+
+    .media-frame.framed-shot {
+      align-self: start;
+      padding: 22px 24px 76px;
+    }
+
+    .media-frame.framed-shot img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      background: rgba(255, 251, 243, 0.64);
+      border: 1px solid rgba(93, 84, 72, 0.14);
+      box-shadow: 0 18px 46px rgba(35, 30, 24, 0.08);
+    }
+
+    .media-frame.framed-shot:hover img {
+      transform: scale(1.012);
     }
 
     .caption {
@@ -846,27 +934,50 @@
         <article class="project">
           <div class="project-text">
             <div class="project-title">
-              <div class="meta">Project 03 · Python + Coze</div>
-              <h3>门店评论分析 Agent</h3>
-              <p>先用 Python 和 Pandas 对门店评论 CSV 做结构化统计，再把数据结果交给 Coze 生成经营周报、改进建议和商家回复话术。</p>
+              <div class="meta">Project 03 · Python + FastAPI + Dify</div>
+              <h3>门店评论分析与自动回复 Agent｜Python + FastAPI + Dify</h3>
+              <p>基于 Python / Pandas 构建门店评论分析流程，实现 CSV 读取、评分统计、差评筛选和问题分类；使用 FastAPI 将分析逻辑封装为公网 API，并通过 Dify HTTP 请求节点调用 API，由 LLM 自动生成门店经营分析周报和典型差评回复建议。</p>
             </div>
             <div class="tags">
               <span class="tag">Python</span>
               <span class="tag">Pandas</span>
+              <span class="tag">FastAPI</span>
+              <span class="tag">Uvicorn</span>
+              <span class="tag">Render</span>
+              <span class="tag">Dify</span>
+              <span class="tag">Prompt</span>
+              <span class="tag">Markdown</span>
               <span class="tag">CSV</span>
-              <span class="tag">经营分析</span>
-              <span class="tag">回复建议</span>
             </div>
             <ul class="detail-list">
-              <li><b>场景</b><span>本地生活门店需要从评论中识别差评集中问题，并生成下一周运营重点。</span></li>
-              <li><b>设计</b><span>完成评分统计、差评筛选、问题分类、分布统计，差评问题集中在配送物流、等待时间和环境卫生。</span></li>
-              <li><b>价值</b><span>证明能把数据处理和 Agent 输出衔接起来，让 AI 基于结构化证据生成业务报告。</span></li>
+              <li><b>数据</b><span>使用 Python / Pandas 对门店评论 CSV 进行评分统计、差评筛选和问题分类。</span></li>
+              <li><b>API</b><span>使用 FastAPI 封装评论分析接口，支持 JSON 请求与 CSV 文件上传。</span></li>
+              <li><b>部署</b><span>将 API 部署至 Render 公网环境，并提供 Swagger 接口文档。</span></li>
+              <li><b>闭环</b><span>在 Dify 中通过 HTTP 请求节点调用公网 API，实现“数据处理 → API 调用 → LLM 周报生成”的自动化闭环。</span></li>
             </ul>
+            <div class="project-links" aria-label="门店评论分析与自动回复 Agent 项目链接">
+              <a href="https://github.com/578737024/Store-Review-Analysis-Agent" target="_blank" rel="noreferrer">GitHub</a>
+              <a href="https://store-review-analysis-agent.onrender.com" target="_blank" rel="noreferrer">Render API</a>
+              <a href="https://store-review-analysis-agent.onrender.com/docs" target="_blank" rel="noreferrer">Swagger 文档</a>
+              <a href="https://pan.quark.cn/s/28727f491c45" target="_blank" rel="noreferrer">V2 演示视频</a>
+            </div>
+            <p class="version-note">V1 版本：早期使用 Python / Pandas 生成结构化 Markdown，再复制到 Coze 生成经营周报和回复建议；当前主线已升级为 FastAPI 公网 API + Dify 工作流。</p>
+            <div class="version-links" aria-label="门店评论分析 V1 链接">
+              <a href="https://pan.quark.cn/s/9365341750f9" target="_blank" rel="noreferrer">V1 演示视频</a>
+              <a href="https://www.coze.cn/store/agent/7641188023723900968?bot_id=true" target="_blank" rel="noreferrer">Coze 体验链接</a>
+            </div>
+            <p class="version-note">V2 版本：将评论分析能力封装为 Render 公网 API，在 Dify 中用 HTTP 请求节点调用接口，再交给 LLM 节点输出周报和典型差评回复，实现从数据处理到 AI 生成的自动化闭环。</p>
           </div>
-          <figure class="media-frame">
-            <img src="assets/store-coze-report.png" alt="门店评论分析 Agent 经营周报截图" />
-            <figcaption class="caption"><span>Coze 生成门店经营分析</span><span>Python Input</span></figcaption>
-          </figure>
+          <div class="media-stack" aria-label="门店评论分析项目截图">
+            <figure class="media-frame framed-shot">
+              <img src="assets/store-dify-final-report.png" alt="Dify 调用公网 API 生成门店经营分析周报截图" />
+              <figcaption class="caption"><span>Dify 生成门店经营分析周报</span><span>Workflow</span></figcaption>
+            </figure>
+            <figure class="media-frame framed-shot">
+              <img src="assets/store-render-csv-markdown-result.png" alt="Render 公网 API 上传 CSV 后返回 Markdown 分析文本截图" />
+              <figcaption class="caption"><span>Render API 返回 Markdown 分析输入</span><span>FastAPI</span></figcaption>
+            </figure>
+          </div>
         </article>
       </div>
     </section>
